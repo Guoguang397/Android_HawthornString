@@ -1,8 +1,20 @@
 package cn.edu.nefu.HawthornString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class UIManager {
+
+   static UIManager Instance;
+   private UIManager(){}
+
+   public static UIManager GetInstance() {
+      if(Instance == null) {
+         Instance = new UIManager();
+      }
+      return Instance;
+   }
+
    /** 移动山楂
     * @param hawthornItems 要移动的山楂
     * @param col 移动到第几串上
@@ -20,13 +32,20 @@ class UIManager {
 
    }
 
-   /** 创建并预览山楂
+   /** 创建山楂
     * @param hawthornLevels 随机结果
     * @return 返回山楂对象
     */
-   public List<HawthornItem> createPreviewItems(List<Integer> hawthornLevels) {
+   public List<HawthornItem> createItems(List<Integer> hawthornLevels) {
 
       return null;
+   }
+
+   /** 预览山楂
+    * @param hawthornLevels 山楂对象
+    */
+   public void previewItems(List<HawthornItem> hawthornLevels) {
+
    }
 
    /** 扔下预览的山楂

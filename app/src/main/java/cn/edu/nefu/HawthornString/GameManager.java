@@ -30,9 +30,10 @@ class GameManager {
     * 初始化
     */
    private void Init(){
+      List<Integer> ints = Arrays.asList(1,1,1,1,1,1);
+      List<HawthornItem> items = UIManager.GetInstance().createItems(ints);
       for(int i=0;i<STRING_CNT;++i){
-         // TODO: 这个山楂要初始化一下
-         strings[i].add(new HawthornItem());
+         strings[i].add(items.get(i));
       }
    }
 
@@ -53,14 +54,16 @@ class GameManager {
       }
 
       List<HawthornItem> ret = new ArrayList<HawthornItem>();
-      ret.add(strings[col].get(strings[col].size()-1));
-      strings[col].remove(strings[col].size()-1);
+      List<HawthornItem> str = strings[col];
+      ret.add(str.get(strings[col].size()-1));
+      str.remove(strings[col].size()-1);
 
-      for(int i=strings[col].size()-1; i>=0; --i){
-         if(strings[col].get(i)==ret.get(ret.size()-1)){
-            ret.add(strings[col].get(i));
-            strings[col].remove(i);
+      for(int i=str.size()-1; i>=0; --i){
+         if(str.get(i)==ret.get(ret.size()-1)){
+            ret.add(str.get(i));
+            str.remove(i);
          }
+         else break;
       }
       return ret;
    }
