@@ -174,9 +174,23 @@ class GameManager {
 
       // 更新最后一个山楂
       HawthornItem newHT=str.get(str.size()-1);
-      ++newHT.level;
-      maxLevel=max(maxLevel,newHT.level);
-      UIManager.GetInstance().changeItem(newHT,newHT.level);
+      if(newHT.level>=8){
+         UIManager.GetInstance().removeItem(str.get(str.size()-1));
+         str.remove(str.size()-1);
+      }
+      else{
+         ++newHT.level;
+         maxLevel=max(maxLevel,newHT.level);
+         UIManager.GetInstance().changeItem(newHT,newHT.level);
+      }
+      SoundManager.PlayMergeSound();
+
+      try {
+         Thread.sleep(500);
+      }
+      catch (InterruptedException e) {
+         e.printStackTrace();
+      }
 
       merge(col);
    }
