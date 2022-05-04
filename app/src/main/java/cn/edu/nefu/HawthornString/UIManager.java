@@ -1,7 +1,6 @@
 package cn.edu.nefu.HawthornString;
 
 import android.content.Context;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
@@ -18,26 +17,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 class UIManager implements View.OnClickListener {
 
     private static UIManager Instance;
-
-    private UIManager() {
-    }
-
     private final ImageView[] sticks = new ImageView[6];
     private final int[] sticksId = {R.id.imageView_stick1, R.id.imageView_stick2, R.id.imageView_stick3, R.id.imageView_stick4, R.id.imageView_stick5, R.id.imageView_stick6};
     private final int[] levelImages = {R.drawable.hawthorn1, R.drawable.hawthorn2, R.drawable.hawthorn3, R.drawable.hawthorn4,
             R.drawable.hawthorn5, R.drawable.hawthorn6, R.drawable.hawthorn7, R.drawable.hawthorn8};
+    List<HawthornItem> pickedHawthornItems = null;
     private ImageView baseItem, pickUpItem, previewItem;
     private TextView tv_score;
     private int pixelsBetween, baseMarinBottom, pickupMarginBottom, previewMarginBottom;
 
     private RelativeLayout layout;
+    private boolean pickedUp = false;
+    private int pickedId = -1;
+    private boolean operationCompleted = true;
+
+    private UIManager() {
+    }
 
     /**
      * @return 返回UIManager实例
@@ -59,7 +59,14 @@ class UIManager implements View.OnClickListener {
         return Instance;
     }
 
-    /** 更新得分
+    public static int dp2px(int dpValue) {
+        final float scale = MainActivity.Instance.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 更新得分
+     *
      * @param score 得分
      */
     public void UpdateScore(int score) {
@@ -74,15 +81,15 @@ class UIManager implements View.OnClickListener {
      * @param row           最下方的果移动到几号位上
      */
     public void moveItems(List<HawthornItem> hawthornItems, int col, int row) {
-        Log.e("Test",String.format("Move %d items to col %d, row %d",hawthornItems.size(),col,row));
+        Log.e("Test", String.format("Move %d items to col %d, row %d", hawthornItems.size(), col, row));
         int r = row;
         for (HawthornItem hawthornItem : hawthornItems) {
             int curRow = r++;
             AnimationSet animationSet = new AnimationSet(true);
             RelativeLayout.LayoutParams stickFrom = (RelativeLayout.LayoutParams) sticks[hawthornItem.x].getLayoutParams();
             RelativeLayout.LayoutParams stickTo = (RelativeLayout.LayoutParams) sticks[col].getLayoutParams();
-            Log.e("Index X", ""+hawthornItem.x);
-            Log.e("to", ""+col);
+            Log.e("Index X", "" + hawthornItem.x);
+            Log.e("to", "" + col);
 
             TranslateAnimation animation1 = new TranslateAnimation(
                     Animation.ABSOLUTE, 0,
@@ -120,7 +127,7 @@ class UIManager implements View.OnClickListener {
                         public void onAnimationEnd(Animation animation) {
                             layoutParams.bottomMargin = baseMarinBottom + dp2px(55) * curRow;
                             hawthornItem.imgView.setLayoutParams(layoutParams);
-                            hawthornItem.x = col ;
+                            hawthornItem.x = col;
                             hawthornItem.y = curRow;
                             operationCompleted = true;
                         }
@@ -186,14 +193,16 @@ class UIManager implements View.OnClickListener {
         return ret;
     }
 
-    /** 删除山楂
+    /**
+     * 删除山楂
+     *
      * @param hawthornItem 山楂对象
      */
     public void removeItem(HawthornItem hawthornItem) {
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                HawthornItem item = (HawthornItem)msg.obj;
+                HawthornItem item = (HawthornItem) msg.obj;
                 item.imgView.setVisibility(View.GONE);
                 layout.removeView(item.imgView);
                 return false;
@@ -247,12 +256,12 @@ class UIManager implements View.OnClickListener {
         for (int i = 0; i < hawthornItems.size(); i++) {
             HawthornItem item = hawthornItems.get(i);
             int pickMarginBottom = pickupMarginBottom + dp2px(50) * (hawthornItems.size() - i - 1);
-            int curMarginBottom = baseMarinBottom + item.y*dp2px(55);
+            int curMarginBottom = baseMarinBottom + item.y * dp2px(55);
             TranslateAnimation animation1 = new TranslateAnimation(
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, 0,
-                    Animation.ABSOLUTE, curMarginBottom-pickMarginBottom);
+                    Animation.ABSOLUTE, curMarginBottom - pickMarginBottom);
             animation1.setDuration(300);
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
@@ -278,19 +287,21 @@ class UIManager implements View.OnClickListener {
         SoundManager.PlayPickupSound();
     }
 
-    /** 放回去
+    /**
+     * 放回去
+     *
      * @param hawthornItems 要放回去的山楂
      */
     public void putBackItem(List<HawthornItem> hawthornItems) {
         for (int i = 0; i < hawthornItems.size(); i++) {
             HawthornItem item = hawthornItems.get(i);
-            int targetMarginBottom = baseMarinBottom + item.y*dp2px(55);
+            int targetMarginBottom = baseMarinBottom + item.y * dp2px(55);
             int curMarginBottom = pickupMarginBottom + dp2px(50) * (hawthornItems.size() - i - 1);
             TranslateAnimation animation1 = new TranslateAnimation(
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, 0,
-                    Animation.ABSOLUTE, curMarginBottom-targetMarginBottom);
+                    Animation.ABSOLUTE, curMarginBottom - targetMarginBottom);
             animation1.setDuration(300);
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
@@ -314,7 +325,6 @@ class UIManager implements View.OnClickListener {
             item.imgView.startAnimation(animation1);
         }
     }
-
 
     /**
      * 扔下预览的山楂
@@ -399,11 +409,6 @@ class UIManager implements View.OnClickListener {
 //        dropItems(items, Arrays.asList(0, 1, 2, 1, 0, 1));
     }
 
-    public static int dp2px(int dpValue) {
-        final float scale = MainActivity.Instance.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
     private int getScreenWidth() {
         getAndroidScreenProperty();
         WindowManager wm = (WindowManager) MainActivity.Instance.getSystemService(Context.WINDOW_SERVICE);
@@ -441,14 +446,9 @@ class UIManager implements View.OnClickListener {
         Log.d("h_bl", "屏幕高度（dp）：" + screenHeight);
     }
 
-    private boolean pickedUp = false;
-    List<HawthornItem> pickedHawthornItems = null;
-    private int pickedId = -1;
-    private boolean operationCompleted = true;
-
     private int getIndex(int[] arr, int data) {
-        for(int i=0;i<arr.length;i++) {
-            if(data == arr[i]) {
+        for (int i = 0; i < arr.length; i++) {
+            if (data == arr[i]) {
                 return i;
             }
         }
@@ -457,22 +457,22 @@ class UIManager implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(!operationCompleted)return;
+        if (!operationCompleted) return;
         int col = getIndex(sticksId, v.getId());
-        if( col != -1) {
+        if (col != -1) {
             operationCompleted = false;
             try {
-                if(pickedUp) {
-                    if(pickedId == col) {
+                if (pickedUp) {
+                    if (pickedId == col) {
                         putBackItem(pickedHawthornItems);
                     } else {
-                        Log.e("Test", ""+pickedId+" "+col);
+                        Log.e("Test", "" + pickedId + " " + col);
                         GameManager.getSingleton().moveItems(pickedId, col);
                     }
                     pickedUp = false;
                 } else {
                     pickedHawthornItems = GameManager.getSingleton().pickItems(col);
-                    if(pickedHawthornItems != null) {
+                    if (pickedHawthornItems != null) {
                         pickedId = col;
                         pickItems(pickedHawthornItems);
                         pickedUp = true;
@@ -483,7 +483,7 @@ class UIManager implements View.OnClickListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("Test", ""+pickedUp+" "+pickedId);
+            Log.e("Test", "" + pickedUp + " " + pickedId);
         }
     }
 }
