@@ -1,6 +1,9 @@
 package cn.edu.nefu.HawthornString;
 
 import android.content.Context;
+import android.os.Debug;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +14,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,16 +74,22 @@ class UIManager implements View.OnClickListener {
      * @param row           最下方的果移动到几号位上
      */
     public void moveItems(List<HawthornItem> hawthornItems, int col, int row) {
+        Log.e("Test",String.format("Move %d items to col %d, row %d",hawthornItems.size(),col,row));
         int r = row;
         for (HawthornItem hawthornItem : hawthornItems) {
-            int curRow = r;
+            int curRow = r++;
             AnimationSet animationSet = new AnimationSet(true);
+            RelativeLayout.LayoutParams stickFrom = (RelativeLayout.LayoutParams) sticks[hawthornItem.x].getLayoutParams();
+            RelativeLayout.LayoutParams stickTo = (RelativeLayout.LayoutParams) sticks[col].getLayoutParams();
+            Log.e("Index X", ""+hawthornItem.x);
+            Log.e("to", ""+col);
+
             TranslateAnimation animation1 = new TranslateAnimation(
                     Animation.ABSOLUTE, 0,
-                    Animation.ABSOLUTE, pixelsBetween * (col - hawthornItems.get(0).x) * 1.6f,
+                    Animation.ABSOLUTE, stickTo.leftMargin - stickFrom.leftMargin,
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, 0);
-            animation1.setDuration(600);
+            animation1.setDuration(300);
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -97,8 +108,8 @@ class UIManager implements View.OnClickListener {
                             Animation.ABSOLUTE, 0,
                             Animation.ABSOLUTE, 0,
                             Animation.ABSOLUTE, 0,
-                            Animation.ABSOLUTE, pickupMarginBottom - baseMarinBottom - dp2px(55) * curRow);
-                    animation2.setDuration(600);
+                            Animation.ABSOLUTE, pickupMarginBottom - baseMarinBottom - dp2px(55) * row);
+                    animation2.setDuration(300);
                     animation2.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
@@ -107,8 +118,11 @@ class UIManager implements View.OnClickListener {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            layoutParams.bottomMargin = baseMarinBottom + dp2px(55) * row;
+                            layoutParams.bottomMargin = baseMarinBottom + dp2px(55) * curRow;
                             hawthornItem.imgView.setLayoutParams(layoutParams);
+                            hawthornItem.x = col ;
+                            hawthornItem.y = curRow;
+                            operationCompleted = true;
                         }
 
                         @Override
@@ -125,7 +139,6 @@ class UIManager implements View.OnClickListener {
                 }
             });
             hawthornItem.imgView.startAnimation(animation1);
-            r++;
         }
     }
 
@@ -147,14 +160,14 @@ class UIManager implements View.OnClickListener {
      * @return 返回山楂对象
      */
     public List<HawthornItem> createItems(List<Integer> hawthornLevels) {
-        int col = 1;
+        int col = 0;
         List<HawthornItem> ret = new ArrayList<>();
         for (int level : hawthornLevels) {
             HawthornItem item = new HawthornItem();
             ImageView imgView = new ImageView(MainActivity.Instance);
             imgView.setVisibility(View.INVISIBLE);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(baseItem.getLayoutParams());
-            layoutParams.addRule(RelativeLayout.ALIGN_START, sticksId[col - 1]);
+            layoutParams.addRule(RelativeLayout.ALIGN_START, sticksId[col]);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
             layoutParams.bottomMargin = baseMarinBottom;
             layoutParams.height = dp2px(50);
@@ -177,8 +190,26 @@ class UIManager implements View.OnClickListener {
      * @param hawthornItem 山楂对象
      */
     public void removeItem(HawthornItem hawthornItem) {
-        layout.removeView(hawthornItem.imgView);
-        hawthornItem.imgView.setVisibility(View.GONE);
+        Handler handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                HawthornItem item = (HawthornItem)msg.obj;
+                item.imgView.setVisibility(View.GONE);
+                layout.removeView(item.imgView);
+                return false;
+            }
+        });
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Message msg = new Message();
+            msg.obj = hawthornItem;
+            handler.sendMessage(msg);
+        });
+        thread.start();
     }
 
     /**
@@ -222,7 +253,7 @@ class UIManager implements View.OnClickListener {
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, curMarginBottom-pickMarginBottom);
-            animation1.setDuration(600);
+            animation1.setDuration(300);
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -234,7 +265,7 @@ class UIManager implements View.OnClickListener {
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) item.imgView.getLayoutParams();
                     layoutParams.bottomMargin = pickMarginBottom;
                     item.imgView.setLayoutParams(layoutParams);
-//                    putBackItem(hawthornItems);
+                    operationCompleted = true;
                 }
 
                 @Override
@@ -260,7 +291,7 @@ class UIManager implements View.OnClickListener {
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, 0,
                     Animation.ABSOLUTE, curMarginBottom-targetMarginBottom);
-            animation1.setDuration(600);
+            animation1.setDuration(300);
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -272,6 +303,7 @@ class UIManager implements View.OnClickListener {
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) item.imgView.getLayoutParams();
                     layoutParams.bottomMargin = targetMarginBottom;
                     item.imgView.setLayoutParams(layoutParams);
+                    operationCompleted = true;
                 }
 
                 @Override
@@ -412,6 +444,7 @@ class UIManager implements View.OnClickListener {
     private boolean pickedUp = false;
     List<HawthornItem> pickedHawthornItems = null;
     private int pickedId = -1;
+    private boolean operationCompleted = true;
 
     private int getIndex(int[] arr, int data) {
         for(int i=0;i<arr.length;i++) {
@@ -424,8 +457,10 @@ class UIManager implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if(!operationCompleted)return;
         int col = getIndex(sticksId, v.getId());
         if( col != -1) {
+            operationCompleted = false;
             try {
                 if(pickedUp) {
                     if(pickedId == col) {
