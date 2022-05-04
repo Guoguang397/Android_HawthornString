@@ -167,7 +167,7 @@ class UIManager implements View.OnClickListener {
             item.imgView = imgView;
             item.level = level;
             item.x = col++;
-            item.y = 9;
+            item.y = 0;
             ret.add(item);
         }
         return ret;
@@ -234,7 +234,7 @@ class UIManager implements View.OnClickListener {
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) item.imgView.getLayoutParams();
                     layoutParams.bottomMargin = pickMarginBottom;
                     item.imgView.setLayoutParams(layoutParams);
-                    putBackItem(hawthornItems);
+//                    putBackItem(hawthornItems);
                 }
 
                 @Override
@@ -313,9 +313,10 @@ class UIManager implements View.OnClickListener {
                     item.imgView.setLayoutParams(layoutParams);
                     item.imgView.setImageAlpha(255);
 
-                    HawthornItem item2 = new HawthornItem();
-                    item2.imgView = MainActivity.Instance.findViewById(R.id.hawthorn_base21);
-                    pickItems(Arrays.asList(hawthornItems.get(1), item2));
+                    //Test Code
+//                    HawthornItem item2 = new HawthornItem();
+//                    item2.imgView = MainActivity.Instance.findViewById(R.id.hawthorn_base21);
+//                    pickItems(Arrays.asList(hawthornItems.get(1), item2));
                 }
 
                 @Override
@@ -357,13 +358,13 @@ class UIManager implements View.OnClickListener {
         previewMarginBottom = layoutParams.bottomMargin;
 
         //For test purposes only.
-        HawthornItem item = new HawthornItem();
-        item.imgView = pickUpItem;
-        moveItems(Arrays.asList(item), 4, 3);
-        changeItem(item, 6);
-        List<HawthornItem> items = createItems(Arrays.asList(1, 2, 3, 4, 5, 6));
-        previewItems(items);
-        dropItems(items, Arrays.asList(0, 1, 2, 1, 0, 1));
+//        HawthornItem item = new HawthornItem();
+//        item.imgView = pickUpItem;
+//        moveItems(Arrays.asList(item), 4, 3);
+//        changeItem(item, 6);
+//        List<HawthornItem> items = createItems(Arrays.asList(1, 2, 3, 4, 5, 6));
+//        previewItems(items);
+//        dropItems(items, Arrays.asList(0, 1, 2, 1, 0, 1));
     }
 
     public static int dp2px(int dpValue) {
@@ -424,16 +425,16 @@ class UIManager implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int col = getIndex(sticksId, v.getId());
-        Log.e("Test1", String.valueOf(v.getId()));
         if( col != -1) {
             try {
                 if(pickedUp) {
                     if(pickedId == col) {
                         putBackItem(pickedHawthornItems);
-                        pickedUp = false;
                     } else {
+                        Log.e("Test", ""+pickedId+" "+col);
                         GameManager.getSingleton().moveItems(pickedId, col);
                     }
+                    pickedUp = false;
                 } else {
                     pickedHawthornItems = GameManager.getSingleton().pickItems(col);
                     if(pickedHawthornItems != null) {
@@ -445,7 +446,7 @@ class UIManager implements View.OnClickListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.e("Test", String.valueOf(pickedUp));
+            Log.e("Test", ""+pickedUp+" "+pickedId);
         }
     }
 }

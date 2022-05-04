@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity {
 
     static MainActivity Instance;
     UIManager uiManager;
+    GameManager gameManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
 //        Toast.makeText(this, "Resume", Toast.LENGTH_SHORT).show();
         uiManager.matchResolution();
+        gameManager = GameManager.getSingleton();
         super.onResume();
     }
 }

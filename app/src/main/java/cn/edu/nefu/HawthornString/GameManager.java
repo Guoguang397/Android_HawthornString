@@ -17,6 +17,7 @@ class GameManager {
    private List<HawthornItem>[] strings = new ArrayList[STRING_CNT];
    private int actCnt = 0;
    private int maxLevel = 1;
+   private List<HawthornItem> newHT = new ArrayList<>();
 
    private GameManager (){}
 
@@ -74,6 +75,7 @@ class GameManager {
          fromStr.remove(fromStr.size()-1);
       }
       // 添加到目标签子上
+      UIManager.GetInstance().moveItems(picked, to, toStr.size());
       toStr.addAll(picked);
       // 合并
       merge(to);
@@ -82,7 +84,6 @@ class GameManager {
          // TODO: Game Over
       }
 
-      List<HawthornItem> newHT = new ArrayList<>();
       ++actCnt;
       // 第三次操作，生成并预览下一轮山楂
       if(actCnt%4==3){
@@ -115,6 +116,7 @@ class GameManager {
       List<Integer> ints = Arrays.asList(1,1,1,1,1,1);
       List<HawthornItem> items = UIManager.GetInstance().createItems(ints);
       for(int i=0;i<STRING_CNT;++i){
+         strings[i] = new ArrayList<HawthornItem>();
          strings[i].add(items.get(i));
       }
       UIManager.GetInstance().showItems(items);

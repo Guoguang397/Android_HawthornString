@@ -169,6 +169,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="-15dp"
         android:layout_marginBottom="450dp"
+        android:visibility="invisible"
         app:srcCompat="@drawable/hawthorn8" />
 
     <ImageView
@@ -190,7 +191,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="-15dp"
         android:layout_marginBottom="45dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:srcCompat="@drawable/hawthorn1" />
 
     <TextView
