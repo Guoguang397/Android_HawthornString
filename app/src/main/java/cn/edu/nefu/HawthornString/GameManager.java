@@ -184,14 +184,6 @@ class GameManager {
          UIManager.GetInstance().changeItem(newHT,newHT.level);
       }
       SoundManager.PlayMergeSound();
-
-      try {
-         Thread.sleep(500);
-      }
-      catch (InterruptedException e) {
-         e.printStackTrace();
-      }
-
       merge(col);
    }
 

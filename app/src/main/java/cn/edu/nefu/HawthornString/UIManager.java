@@ -476,6 +476,8 @@ class UIManager implements View.OnClickListener {
                         pickedId = col;
                         pickItems(pickedHawthornItems);
                         pickedUp = true;
+                    } else {
+                        operationCompleted = true;
                     }
                 }
             } catch (Exception e) {
