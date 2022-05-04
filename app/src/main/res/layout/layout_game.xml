@@ -1,0 +1,209 @@
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <ImageView
+        android:id="@+id/imageView_stick1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="315dp"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@drawable/stick"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView_stick2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="315dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/imageView_stick1"
+        app:srcCompat="@drawable/stick"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView_stick3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="315dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/imageView_stick2"
+        app:srcCompat="@drawable/stick"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView_stick4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="315dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/imageView_stick3"
+        app:srcCompat="@drawable/stick"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView_stick5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="315dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/imageView_stick4"
+        app:srcCompat="@drawable/stick"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView_stick6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="315dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/imageView_stick5"
+        app:srcCompat="@drawable/stick"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="45dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn1" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="100dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn2" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="155dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn3" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="210dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn4" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="265dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn5" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="320dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn6" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="375dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn7" />
+
+    <ImageView
+        android:id="@+id/hawthorn_pickup"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="450dp"
+        app:srcCompat="@drawable/hawthorn8" />
+
+    <ImageView
+        android:id="@+id/hawthorn_preview"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/imageView_stick1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="540dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/hawthorn8" />
+
+    <ImageView
+        android:id="@+id/hawthorn_base21"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@id/imageView_stick2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-15dp"
+        android:layout_marginBottom="45dp"
+        android:visibility="visible"
+        app:srcCompat="@drawable/hawthorn1" />
+
+    <TextView
+        android:id="@+id/textView_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="27dp"
+        android:width="100dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+</RelativeLayout>
