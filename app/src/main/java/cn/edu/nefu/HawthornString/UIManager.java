@@ -173,6 +173,16 @@ class UIManager implements View.OnClickListener {
         return ret;
     }
 
+    /** 删除山楂
+     * @param hawthornItems 山楂对象
+     */
+    public void removeItem(List<HawthornItem> hawthornItems) {
+        for(HawthornItem hawthornItem:hawthornItems) {
+            layout.removeView(hawthornItem.imgView);
+            hawthornItem.imgView.setVisibility(View.GONE);
+        }
+    }
+
     /**
      * 预览山楂
      *
