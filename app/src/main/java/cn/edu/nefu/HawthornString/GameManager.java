@@ -102,6 +102,9 @@ class GameManager {
             dropPos.add(strings[i].size()-1);
          }
          UIManager.GetInstance().dropItems(newHT,dropPos);
+         for(int i=0;i<STRING_CNT;++i){
+            merge(i);
+         }
          if(fail){
             // TODO: Game Over
          }
@@ -160,7 +163,7 @@ class GameManager {
       }
 
       score+=same.get(0).level*same.size();
-      // TODO: 更新 UI，更新计分板
+      UIManager.GetInstance().UpdateScore(score);
 
       List<HawthornItem> str=strings[col];
       // 删除多余的山楂
