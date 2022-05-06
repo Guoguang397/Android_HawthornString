@@ -201,12 +201,9 @@ class GameManager {
         for (int i = 0; i < STRING_CNT; ++i) {
             double randNum = Math.abs(random.nextGaussian());
             int lev = (int) (randNum / range) + 1;
-            if (lev > maxLevel) {
-                lev = maxLevel;
-            }
+            lev = Math.max(1, Math.min(lev, maxLevel - 1));
             ret.add(lev);
         }
-
         return ret;
     }
 }
