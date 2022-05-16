@@ -10,7 +10,7 @@ class SQLiteHelper extends SQLiteOpenHelper{
 
     private static final String TAG = "SQLiteHelper";
 
-    private static final String DATABASE_NAME = "tanghulu.db";
+    private static final String DATABASE_NAME = "HawthornString.db";
     private static final String TABLE_NAME = "score";
     private static final int DATABASE_VERSION = 1;
 
@@ -111,7 +111,7 @@ class SQLiteHelper extends SQLiteOpenHelper{
      * @param score
      * @return
      */
-    public String queryrank(String score,int model){
+    public String queryrank(String score){
         String rank = null;
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = db.query(TABLE_NAME, null, " _score >= "+score+" " , null, null, null, null, null);
@@ -154,7 +154,7 @@ class SQLiteHelper extends SQLiteOpenHelper{
     /**
      * @return 返回的一个Cursor集，按照分数的降序排列
      */
-    public Cursor getListViewCursorByModel(int model) {
+    public Cursor getListViewCursorByModel() {
         Cursor cursor = null;
         try {
             mDB = getWritableDatabase();
