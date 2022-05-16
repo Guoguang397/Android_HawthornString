@@ -19,6 +19,7 @@ public class RankListActivity extends AppCompatActivity {
 
         lv_rankList = findViewById(R.id.lv_rankList);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
+        System.out.println(sqLiteHelper.getListViewCursorByModel());
         CursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.rank_item, sqLiteHelper.getListViewCursorByModel(),
                 from, to, 0);
         lv_rankList.setAdapter(cursorAdapter);

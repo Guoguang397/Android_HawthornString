@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 //        Toast.makeText(this, "Resume", Toast.LENGTH_SHORT).show();
         uiManager.matchResolution();
         gameManager = GameManager.getSingleton();
+        Intent intent = new Intent();
+        intent.setAction("cn.edu.nefu.hawthorn_string.gameover_action");
+        intent.setPackage(MainActivity.Instance.getPackageName());
+        intent.putExtra("score", 15);
+        MainActivity.Instance.sendBroadcast(intent);
         super.onResume();
     }
 
@@ -37,10 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            System.out.println("Received");
             int score = intent.getIntExtra("score", 0);
             Intent it = new Intent();
             it.setClass(MainActivity.Instance, GameOverActivity.class);
             it.putExtra("score", score);
+            it.setPackage(MainActivity.Instance.getPackageName());
             MainActivity.Instance.startActivity(it);
             MainActivity.Instance.finish();
         }

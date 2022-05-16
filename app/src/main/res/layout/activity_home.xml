@@ -21,24 +21,22 @@
         app:layout_constraintVertical_bias="0.735"
         app:srcCompat="@drawable/start" />
 
-    <ImageButton
-        android:id="@+id/btn_newGame4"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+    <ImageView
+        android:layout_width="315dp"
+        android:layout_height="122dp"
         android:background="#0000"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286"
+        app:layout_constraintVertical_bias="0.304"
         app:srcCompat="@drawable/title" />
 
     <ImageButton
-        android:id="@+id/btn_newGame2"
-        android:layout_width="82dp"
-        android:layout_height="87dp"
+        android:id="@+id/btn_about"
+        android:layout_width="68dp"
+        android:layout_height="64dp"
         android:background="#0000"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,9 +48,9 @@
         app:srcCompat="@drawable/about" />
 
     <ImageButton
-        android:id="@+id/btn_newGame3"
-        android:layout_width="82dp"
-        android:layout_height="87dp"
+        android:id="@+id/btn_rankList"
+        android:layout_width="68dp"
+        android:layout_height="64dp"
         android:background="#0000"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"

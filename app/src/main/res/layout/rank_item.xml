@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:text="1"
         android:textAlignment="center"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -20,7 +20,7 @@
         android:layout_weight="3"
         android:text="Guoguang"
         android:textAlignment="center"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/tv_score"
@@ -29,6 +29,6 @@
         android:layout_weight="1"
         android:text="2048"
         android:textAlignment="center"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 
 </LinearLayout>

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HawthornString">
         <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
             android:name=".GameOverActivity"
             android:exported="false" />
         <activity
@@ -23,7 +26,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <service
@@ -43,12 +45,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
-
-<!--        <meta-data-->
-<!--            android:name="preloaded_fonts" />-->
+            android:exported="true"></activity>
     </application>
 
 </manifest>

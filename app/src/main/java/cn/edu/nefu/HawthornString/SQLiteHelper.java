@@ -64,8 +64,8 @@ class SQLiteHelper extends SQLiteOpenHelper{
 
     /**
      * 判断是否已经存在
-     * @param nameString
-     * @return
+     * @param nameString 查询的姓名
+     * @return true/false
      */
     public boolean isNameExist(String nameString){
         boolean flag = false;
@@ -74,9 +74,9 @@ class SQLiteHelper extends SQLiteOpenHelper{
         int nameIndex = cursor.getColumnIndex("_name");
         for(cursor.moveToFirst(); !(cursor.isAfterLast()); cursor.moveToNext()){
             if(cursor.getString(nameIndex).equals("") ||cursor.getString(nameIndex) == null){
-                flag = false;//不存在
+                flag = false; //不存在
             }else {
-                flag = true;//已经存在
+                flag = true; //已经存在
             }
         }
         cursor.close();
@@ -157,7 +157,7 @@ class SQLiteHelper extends SQLiteOpenHelper{
         Cursor cursor = null;
         try {
             mDB = getWritableDatabase();
-            cursor = mDB.query(TABLE_NAME, null,  null, null, null, "_score desc",null);
+            cursor = mDB.query(TABLE_NAME, null,  null, null, null, null, "_score desc");
             for(cursor.moveToFirst(); !(cursor.isAfterLast()); cursor.moveToNext()){
             }
         } catch (Exception e) {

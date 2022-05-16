@@ -57,6 +57,7 @@ class GameManager {
     private void gameOver(){
         Intent intent = new Intent();
         intent.setAction("cn.edu.nefu.hawthorn_string.gameover_action");
+        intent.setPackage(MainActivity.Instance.getPackageName());
         intent.putExtra("score", score);
         MainActivity.Instance.sendBroadcast(intent);
     }
@@ -94,6 +95,7 @@ class GameManager {
         if (toStr.size() > HW_MAX) {
             gameOver();
             System.out.println("GAMEOVER");
+            return;
         }
 
         ++actCnt;

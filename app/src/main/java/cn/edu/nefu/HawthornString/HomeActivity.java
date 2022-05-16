@@ -13,13 +13,20 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        findViewById(R.id.btn_newGame).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        findViewById(R.id.btn_newGame).setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setClass(HomeActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.btn_rankList).setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, RankListActivity.class);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.btn_about).setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, AboutActivity.class);
+            startActivity(intent);
         });
     }
 }
