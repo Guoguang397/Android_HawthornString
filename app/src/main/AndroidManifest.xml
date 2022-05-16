@@ -35,7 +35,7 @@
             android:name=".MainActivity$GameOverBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="cn.edu.nefu.HawthornString.GameoverAction" />
+                <action android:name="cn.edu.nefu.hawthorn_string.gameover_action" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -47,8 +47,8 @@
 
         </activity>
 
-        <meta-data
-            android:name="preloaded_fonts" />
+<!--        <meta-data-->
+<!--            android:name="preloaded_fonts" />-->
     </application>
 
 </manifest>

@@ -39,7 +39,6 @@ class GameManager {
 
     /**
      * 选择一根签子
-     *
      * @param col 签子序号
      * @return 被拿起的山楂对象，如果没有可拿起的山楂则返回 null
      */
@@ -52,16 +51,18 @@ class GameManager {
         return choose(col);
     }
 
-    void gameOver(){
+    /**
+     * 游戏结束
+     */
+    private void gameOver(){
         Intent intent = new Intent();
-        intent.setAction("cn.edu.nefu.HawthornString.GameoverAction");
+        intent.setAction("cn.edu.nefu.hawthorn_string.gameover_action");
         intent.putExtra("score", score);
         MainActivity.Instance.sendBroadcast(intent);
     }
 
     /**
      * 移动山楂
-     *
      * @param from 起始签子
      * @param to   结束签子
      */
@@ -92,6 +93,7 @@ class GameManager {
 
         if (toStr.size() > HW_MAX) {
             gameOver();
+            System.out.println("GAMEOVER");
         }
 
         ++actCnt;
@@ -117,6 +119,7 @@ class GameManager {
             }
             if (fail) {
                 gameOver();
+                System.out.println("GAMEOVER");
             }
         }
     }
@@ -137,7 +140,6 @@ class GameManager {
 
     /**
      * 在这根签字上寻找可被拿起的山楂
-     *
      * @param col 签子序号
      * @return 可以被拿起的山楂对象，如果没有可拿起的山楂则返回 null
      */
@@ -164,7 +166,6 @@ class GameManager {
 
     /**
      * 递归合并目标签字上可合并的山楂
-     *
      * @param col 进行合并的签子
      */
     private void merge(int col) {
@@ -199,7 +200,6 @@ class GameManager {
 
     /**
      * 生成 6 个新山楂
-     *
      * @return 生成的山楂
      */
     private List<Integer> generateNewHawthornItemLevel() {
