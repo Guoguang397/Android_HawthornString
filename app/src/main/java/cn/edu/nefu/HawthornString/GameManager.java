@@ -2,6 +2,8 @@ package cn.edu.nefu.HawthornString;
 
 import static java.lang.StrictMath.max;
 
+import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +52,13 @@ class GameManager {
         return choose(col);
     }
 
+    void gameOver(){
+        Intent intent = new Intent();
+        intent.setAction("cn.edu.nefu.HawthornString.GameoverAction");
+        intent.putExtra("score", score);
+        MainActivity.Instance.sendBroadcast(intent);
+    }
+
     /**
      * 移动山楂
      *
@@ -82,7 +91,7 @@ class GameManager {
         merge(to);
 
         if (toStr.size() > HW_MAX) {
-            // TODO: Game Over
+            gameOver();
         }
 
         ++actCnt;
@@ -107,7 +116,7 @@ class GameManager {
                 merge(i);
             }
             if (fail) {
-                // TODO: Game Over
+                gameOver();
             }
         }
     }
