@@ -17,7 +17,14 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
         <service
             android:name=".SoundService"
@@ -28,7 +35,7 @@
             android:name=".MainActivity$GameOverBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.example.androidcourse.GameoverAction" />
+                <action android:name="cn.edu.nefu.HawthornString.GameoverAction" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -37,11 +44,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
