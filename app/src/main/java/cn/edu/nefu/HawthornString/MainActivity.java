@@ -37,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            intent.getIntExtra("score", 0);
+            int score = intent.getIntExtra("score", 0);
+            Intent it = new Intent();
+            it.setClass(MainActivity.Instance, GameOverActivity.class);
+            it.putExtra("score", score);
+            MainActivity.Instance.startActivity(it);
+            MainActivity.Instance.finish();
         }
     }
 }

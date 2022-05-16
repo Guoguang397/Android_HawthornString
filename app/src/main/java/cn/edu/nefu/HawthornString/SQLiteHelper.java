@@ -111,11 +111,10 @@ class SQLiteHelper extends SQLiteOpenHelper{
      * @param score
      * @return
      */
-    public String queryrank(String score){
-        String rank = null;
+    public int queryrank(int score){
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = db.query(TABLE_NAME, null, " _score >= "+score+" " , null, null, null, null, null);
-        rank = String.valueOf(c.getCount());
+        int rank = c.getCount();
 
         Cursor cc = db.query(TABLE_NAME, null, " _score < "+score+" " , null, null, null, null, null);
         if(cc.getCount() > 0){

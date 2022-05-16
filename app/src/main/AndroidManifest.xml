@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HawthornString">
         <activity
+            android:name=".GameOverActivity"
+            android:exported="false" />
+        <activity
             android:name=".RankListActivity"
             android:exported="false" />
         <activity
@@ -21,10 +24,12 @@
             android:enabled="true"
             android:exported="false" />
 
-        <receiver android:name=".MainActivity$GameOverBroadcastReceiver"
+        <receiver
+            android:name=".MainActivity$GameOverBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.example.androidcourse.playaction" />
+                <action android:name="com.example.androidcourse.GameoverAction" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -38,6 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
