@@ -48,7 +48,7 @@
         android:id="@+id/btn_submitScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="> 提交成绩 <"
+        android:text="提交成绩"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
