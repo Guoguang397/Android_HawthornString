@@ -2,6 +2,9 @@ package cn.edu.nefu.HawthornString;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -28,5 +31,13 @@ public class MainActivity extends AppCompatActivity {
         uiManager.matchResolution();
         gameManager = GameManager.getSingleton();
         super.onResume();
+    }
+
+    public static class GameOverBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            intent.getIntExtra("score", 0);
+        }
     }
 }

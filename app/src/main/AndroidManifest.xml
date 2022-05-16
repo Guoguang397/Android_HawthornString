@@ -9,10 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HawthornString">
+        <activity
+            android:name=".RankListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+
         <service
             android:name=".SoundService"
             android:enabled="true"
             android:exported="false" />
+
+        <receiver android:name=".MainActivity$GameOverBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.androidcourse.playaction" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".MainActivity"
@@ -23,6 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
